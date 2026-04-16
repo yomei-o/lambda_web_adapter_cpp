@@ -27,4 +27,8 @@ The provided `build_lambda_image.sh` script automates the compilation and packag
    ```bash
    chmod +x build_lambda_image.sh
 
+2. **Run the build script**:
+
+   ```bash
+   ./build_lambda_image.sh
    
