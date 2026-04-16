@@ -32,3 +32,36 @@ The provided `build_lambda_image.sh` script automates the compilation and packag
    ```bash
    ./build_lambda_image.sh
    
+### Build Process Details:
+
+Architecture Detection: Automatically detects if the host is aarch64 and uses the x86_64-linux-gnu toolchain for cross-compilation.
+
+Compilation: Compiles both lambda_server and lambda-adapter with necessary include paths (src/main, src/headeronly, src/mysql_8_4) and RPATH settings.
+
+Packaging: Creates a clean image/ directory, gathers all binaries, the bootstrap script, and the libmysqlclient.so library, then compresses them into build_image.zip.
+
+## Deployment Package Content
+The resulting build_image.zip includes:
+
+lambda_server: The core test server logic.
+
+lambda-adapter: The bridge between Lambda and the server.
+
+bootstrap: The execution entry point.
+
+libmysqlclient.so: Shared library for MySQL operations.
+
+images.jpg: Static asset for testing purposes.
+
+## AWS Lambda Configuration
+When deploying the generated zip file to AWS, use the following settings:
+
+Runtime: provided.al2023 or provided.al2 (Custom Runtime).
+
+Architecture: x86_64.
+
+Handler: Any string (the bootstrap file handles the actual execution).
+
+## License
+BSD license
+
